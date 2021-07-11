@@ -1,27 +1,44 @@
 <template>
-    <div class="login-outer">
-        <div class="login">
-            <div>
-                <h3 style="text-align: center">系统登录</h3>
-            </div>
-            <div>
-                <el-form :model="loginForm" :rules="rules" ref="loginForm" label-width="100px" class="demo-ruleForm">
-                    <el-form-item label="用户名" prop="username">
-                        <el-input v-model="loginForm.username"></el-input>
-                    </el-form-item>
-                    <el-form-item label="密码" prop="password">
-                        <el-input v-model="loginForm.password" show-password></el-input>
-                    </el-form-item>
-                    <el-form-item label="记住我" prop="remembered">
-                        <el-checkbox v-model="loginForm.remembered"></el-checkbox>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-button style="width: 30%; margin-left: 20px" type="primary" @click="submitForm('loginForm')">登录</el-button>
-                        <el-button style="width: 30%;margin-left: 20px" @click="resetForm('loginForm')">重置</el-button>
-                    </el-form-item>
-                </el-form>
-            </div>
-        </div>
+    <div>
+        <el-row style="height: 120px" >
+
+        </el-row>
+        <el-row style="padding: 120px 0 120px 0" class="login-outer">
+            <el-col :span="4" :offset="3">
+                <el-image style="height: 360px" :src="loginLogo.path" :fit="loginLogo.fit"/>
+            </el-col>
+            <el-col :span="4" :offset="6">
+                <div class="login-content">
+                    <div>
+                        <h3 style="text-align: center">系统登录</h3>
+                    </div>
+                    <div>
+                        <el-form :model="loginForm" :rules="rules" ref="loginForm" label-width="100px"
+                                 class="demo-ruleForm">
+                            <el-form-item label="用户名" prop="username">
+                                <el-input v-model="loginForm.username"></el-input>
+                            </el-form-item>
+                            <el-form-item label="密码" prop="password">
+                                <el-input v-model="loginForm.password" show-password></el-input>
+                            </el-form-item>
+                            <el-form-item label="记住我" prop="remembered">
+                                <el-checkbox v-model="loginForm.remembered"></el-checkbox>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button style="width: 30%;" type="primary"
+                                           @click="submitForm('loginForm')">登录
+                                </el-button>
+                                <el-button style="width: 30%;margin-left: 20px" @click="resetForm('loginForm')">重置
+                                </el-button>
+                            </el-form-item>
+                        </el-form>
+                    </div>
+                </div>
+            </el-col>
+        </el-row>
+        <el-row>
+
+        </el-row>
     </div>
 </template>
 
@@ -30,6 +47,10 @@
     export default {
         data() {
             return {
+                loginLogo: {
+                    path: require("../assets/goldenEgg.png"),
+                    fit: 'scale-down'
+                },
                 loginForm: {
                     username: '',
                     password: '',
@@ -74,12 +95,20 @@
                         }
                     }
                 }).then(res => {
-                    let {result} = res.data;
+                    let {result, message} = res.data;
                     if (result == true) {
+                        this.$notify({
+                            title: '成功',
+                            message: '登陆成功',
+                            type: 'success'
+                        });
                         sessionStorage.setItem("username", username);
                         this.$router.push("/index")
                     } else {
-                        console.log("账号密码不对");
+                        this.$notify.error({
+                            title: '错误',
+                            message: message
+                        });
                     }
 
                 })
@@ -89,19 +118,22 @@
     }
 </script>
 
-<style>
-    .login-outer{
+<style scoped>
+
+    .login-outer {
+        margin: 1px;
+        padding: 2px;
+        background-color: rgba(231, 205, 121, 0.85);
+    }
+
+    .login-content {
+        border-radius: 15px;
         margin: 1px;
         padding: 4%;
-    }
-    .login {
-        border-radius: 15px;
-        background-clip: padding-box;
-        margin:10% 60%;
-        width: 25%;
-        padding: 10px 20px;
         border: 1px solid #eaeaea;
         box-shadow: 0 0 25px #cac6c6;
         background-color: white;
     }
+
+
 </style>

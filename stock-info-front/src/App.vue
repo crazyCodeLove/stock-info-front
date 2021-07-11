@@ -5,7 +5,4 @@
 </template>
 
 <style>
-    #app{
-        background-color: rgb(121, 149, 231);
-    }
 </style>

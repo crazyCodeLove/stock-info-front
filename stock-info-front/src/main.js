@@ -8,11 +8,13 @@ import axios from 'axios';
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);
-Vue.prototype.$http=axios;
-axios.defaults.baseURL="http://127.0.0.1:9921"
+
+Vue.prototype.$http = axios;
+axios.defaults.baseURL = "http://127.0.0.1:9921"
+
 
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app')

@@ -1,13 +1,20 @@
+let proxyObj = {
+    "/": {
+        //是否启用websocket代理
+        ws:false,
+        // 目标地址
+        target: "http://localhost:9921",
+        changeOrigin: true, // 是否改变域名
+        pathRewrite:{
+            '^/':'/'
+        }
+    }
+}
+
 module.export = {
     // devServer: {
-    //     port: 9921,
-    //     host: "127.0.0.1",
-    //     open: true
-    // },
-    // proxy:{
-    //     "/stock-info": {
-    //         target: "http://127.0.0.1:9921",
-    //         changeOrigin: true, // 是否改变域名
-    //     }
+    //     host: "localhost",
+    //     port: 8080,
+    //     proxy: proxyObj
     // }
 }

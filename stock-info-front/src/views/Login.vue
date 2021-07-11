@@ -1,7 +1,7 @@
 <template>
     <div>
-        <el-row style="height: 120px" >
-
+        <el-row style="height: 240px" >
+            <NoticeLeftRight :lists="noticeList"/>
         </el-row>
         <el-row style="padding: 120px 0 120px 0" class="login-outer">
             <el-col :span="4" :offset="3">
@@ -44,9 +44,17 @@
 
 
 <script>
+    // import LoginHeader from "../util/NoticeUpDown";
+    import NoticeLeftRight from "../util/NoticeLeftRight";
     export default {
         data() {
             return {
+                noticeList:[
+                    "好好学习，天天向上",
+                    "时间就像海绵里的水，挤挤总是有的",
+                    "终日忙碌的人，永远没有时间致富",
+
+                ],
                 loginLogo: {
                     path: require("../assets/goldenEgg.png"),
                     fit: 'scale-down'
@@ -67,6 +75,9 @@
                     ],
                 }
             };
+        },
+        components:{
+          NoticeLeftRight
         },
         methods: {
             submitForm(formName) {

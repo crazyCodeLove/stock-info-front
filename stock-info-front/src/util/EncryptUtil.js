@@ -37,11 +37,11 @@ export default {
 
     // sha256 加密
     sha256(word) {
-        return cryptoJs.sha256(word).toString();
+        return cryptoJs.SHA256(word).toString();
     },
 
     // md5 加密
     md5(word) {
-        return cryptoJs.md5(word).toString();
+        return cryptoJs.MD5(word).toString();
     }
 }

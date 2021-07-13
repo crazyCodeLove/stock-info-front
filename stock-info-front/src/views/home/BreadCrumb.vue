@@ -9,11 +9,13 @@
 </template>
 
 <script>
+    // import Cookies from 'js-cookie'
     export default {
         name: "BreadCrumb",
         methods: {
             logout() {
                 sessionStorage.removeItem("username");
+                // Cookies.remove('token');
                 this.$router.push("/login");
             }
         }

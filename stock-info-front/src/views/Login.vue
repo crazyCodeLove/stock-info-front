@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-row style="height: 240px" >
+        <el-row style="height: 240px">
             <NoticeLeftRight :lists="noticeList"/>
         </el-row>
         <el-row style="padding: 120px 0 120px 0" class="login-outer">
@@ -46,10 +46,13 @@
 <script>
     // import LoginHeader from "../util/NoticeUpDown";
     import NoticeLeftRight from "../util/NoticeLeftRight";
+    import EncryptUtil from "../util/EncryptUtil";
+    import Cookies from 'js-cookie'
+
     export default {
         data() {
             return {
-                noticeList:[
+                noticeList: [
                     "好好学习，天天向上",
                     "时间就像海绵里的水，挤挤总是有的",
                     "终日忙碌的人，永远没有时间致富",
@@ -76,8 +79,8 @@
                 }
             };
         },
-        components:{
-          NoticeLeftRight
+        components: {
+            NoticeLeftRight
         },
         methods: {
             submitForm(formName) {
@@ -96,6 +99,8 @@
             },
             login() {
                 let {username, password} = this.loginForm;
+                username = EncryptUtil.aesEncrypt(username);
+                password = EncryptUtil.sha256(password);
                 this.$http({
                     method: 'post',
                     url: '/stock-info/login',
@@ -107,19 +112,20 @@
                     }
                 }).then(res => {
                     let {result, message} = res.data;
-                    if (result == true) {
+                    if (!result || !result.username) {
+                        this.$notify.error({
+                            title: '错误',
+                            message: message
+                        });
+                    } else {
                         this.$notify({
                             title: '成功',
                             message: '登陆成功',
                             type: 'success'
                         });
-                        sessionStorage.setItem("username", username);
+                        sessionStorage.setItem("username", result.username);
+                        Cookies.set("token", result.token)
                         this.$router.push("/index")
-                    } else {
-                        this.$notify.error({
-                            title: '错误',
-                            message: message
-                        });
                     }
 
                 })

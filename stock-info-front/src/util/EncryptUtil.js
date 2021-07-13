@@ -33,5 +33,15 @@ export default {
         })
         let decData = cryptoJs.enc.Utf8.stringify(dec)
         return decData
+    },
+
+    // sha256 加密
+    sha256(word) {
+        return cryptoJs.sha256(word).toString();
+    },
+
+    // md5 加密
+    md5(word) {
+        return cryptoJs.md5(word).toString();
     }
 }

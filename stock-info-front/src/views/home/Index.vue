@@ -32,7 +32,9 @@
 
             </el-aside>
             <el-container>
-                <el-header>Header</el-header>
+                <el-header>
+                    <BreadCrumb/>
+                </el-header>
                 <el-main>Main</el-main>
             </el-container>
         </el-container>
@@ -40,6 +42,8 @@
 </template>
 
 <script>
+    import BreadCrumb from "./BreadCrumb";
+
     export default {
         methods: {
             handleOpen(key, keyPath) {
@@ -48,6 +52,9 @@
             handleClose(key, keyPath) {
                 console.log(key, keyPath);
             }
+        },
+        components: {
+            BreadCrumb
         }
     }
 </script>

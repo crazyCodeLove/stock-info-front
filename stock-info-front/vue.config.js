@@ -12,6 +12,9 @@ let proxyObj = {
 }
 
 module.export = {
+    configureWebpack: {
+        devtool: "source-map"
+    }
     // devServer: {
     //     host: "localhost",
     //     port: 8080,

@@ -47,7 +47,6 @@
     // import LoginHeader from "../util/NoticeUpDown";
     import NoticeLeftRight from "../util/NoticeLeftRight";
     import EncryptUtil from "../util/EncryptUtil";
-    import Cookies from 'js-cookie'
 
     export default {
         data() {
@@ -124,7 +123,7 @@
                             type: 'success'
                         });
                         sessionStorage.setItem("username", result.username);
-                        Cookies.set("token", result.token)
+                        sessionStorage.setItem("token", result.token);
                         this.$router.push("/index")
                     }
 

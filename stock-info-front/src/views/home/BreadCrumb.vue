@@ -9,40 +9,24 @@
 </template>
 
 <script>
-    import Cookies from 'js-cookie'
 
     export default {
         name: "BreadCrumb",
         methods: {
             logout() {
-                let token = Cookies.get('token');
                 this.$http({
                     method: 'post',
-                    url: '/stock-info/logout',
-                    data: {
-                        param: {
-                            token: token
-                        }
-                    }
-                }).then(res => {
-                    let {result, message} = res.data;
-                    if (!result) {
-                        this.$notify.error({
-                            title: '错误',
-                            message: message
-                        });
-                    } else {
-                        sessionStorage.removeItem("username");
-                        Cookies.remove('token');
-                        this.$notify({
-                            title: '成功',
-                            message: '登出成功',
-                            type: 'success'
-                        });
-                        sessionStorage.removeItem("username");
-                        Cookies.remove('token');
-                        this.$router.push("/login")
-                    }
+                    url: '/stock-info/logout'
+                }).then(() => {
+                    sessionStorage.removeItem("username");
+                    sessionStorage.removeItem('token');
+                    this.$notify({
+                        title: '成功',
+                        message: '登出成功',
+                        type: 'success'
+                    });
+
+                    this.$router.push("/login");
 
                 })
             }

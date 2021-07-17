@@ -3,7 +3,7 @@
         <el-row style="height: 240px">
             <NoticeLeftRight :lists="noticeList"/>
         </el-row>
-        <el-row style="padding: 120px 0 120px 0" class="login-outer">
+        <el-row style="padding: 120px 0 120px 0" class="login-outer theam-background">
             <el-col :span="4" :offset="3">
                 <el-image style="height: 360px" :src="loginLogo.path" :fit="loginLogo.fit"/>
             </el-col>
@@ -44,7 +44,6 @@
 
 
 <script>
-    // import LoginHeader from "../util/NoticeUpDown";
     import NoticeLeftRight from "../util/NoticeLeftRight";
     import EncryptUtil from "../util/EncryptUtil";
 
@@ -138,8 +137,6 @@
 
     .login-outer {
         margin: 1px;
-        padding: 2px;
-        background-color: rgba(231, 205, 121, 0.85);
     }
 
     .login-content {

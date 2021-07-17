@@ -1,13 +1,8 @@
 <template>
     <div>
-        <!--<el-carousel :interval="4000" type="card" height="200px">
-            <el-carousel-item v-for="item in lists" :key="item">
-                <h1 style="font-size: 60px; margin-left: 200px">{{ item }}</h1>
-            </el-carousel-item>
-        </el-carousel>-->
         <el-carousel style="height: 300px">
             <el-carousel-item v-for="item in lists" :key="item">
-                <h3 style="font-size: 60px; margin-left: 120px; color: #9f8603">{{ item }}</h3>
+                <h3 style="font-size: 60px; margin-left: 120px;" class="theam-font">{{ item }}</h3>
             </el-carousel-item>
         </el-carousel>
     </div>

@@ -32,7 +32,6 @@ axios.interceptors.request.use(function (config) {
         config.headers.token = token;
     }
     content = content + ",token=" + token;
-    console.log("content:", content);
     config.headers.sec_sign = EncryptUtil.sha256(content)
 
     return config;

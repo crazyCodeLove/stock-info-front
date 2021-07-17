@@ -16,10 +16,61 @@ const routes = [
     {
         path: '/index',
         name: 'index',
-        component: () => import('../views/home/Index.vue'),
+        component: () => import('../views/Index.vue'),
         meta: {
             requireAuth: true
-        }
+        },
+        children: [
+            {
+                path: 'data-analyse/csi',
+                name: 'data-analyse/csi',
+                component: () => import('../views/analyse/CsiIndexAnalyse'),
+                meta: {
+                    requireAuth: true
+                }
+            },
+            {
+                path: 'data-analyse/option2',
+                name: 'data-analyse/option2',
+                component: () => import('../views/analyse/Option2Analyse'),
+                meta: {
+                    requireAuth: true
+                }
+            },
+            {
+                path: 'data-analyse/option3',
+                name: 'data-analyse/option3',
+                component: () => import('../views/analyse/Option3Analyse'),
+                meta: {
+                    requireAuth: true
+                }
+            },
+            {
+                path: 'exchange/fund',
+                name: 'exchange/fund',
+                component: () => import('../views/exchange/FundExchange'),
+                meta: {
+                    requireAuth: true
+                }
+            },
+            {
+                path: 'exchange/stock',
+                name: 'exchange/stock',
+                component: () => import('../views/exchange/StockExchange'),
+                meta: {
+                    requireAuth: true
+                }
+            },
+            {
+                path: 'platform/fetch-data',
+                name: 'platform/fetch-data',
+                component: () => import('../views/platform/FetchData'),
+                meta: {
+                    requireAuth: true
+                }
+            }
+
+        ]
     }
 ]
 

@@ -5,4 +5,11 @@
 </template>
 
 <style>
+    .theam-background {
+        background-color: #c595f2;
+    }
+
+    .theam-font {
+        color: #c489fb;
+    }
 </style>

@@ -12,4 +12,8 @@
     .theam-font {
         color: #c489fb;
     }
+
+    #app {
+        background-color: #FAFAFA;
+    }
 </style>

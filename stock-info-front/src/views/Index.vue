@@ -4,27 +4,47 @@
             <el-header style="font-size: 16px">
                 <Nav/>
             </el-header>
-            <p>
+            <div v-if="path == '/index' || path =='/index/'">
+                <home-index/>
+            </div>
+            <div>
                 <router-view/>
-            </p>
+            </div>
         </el-container>
     </div>
 </template>
 
 <script>
     import Nav from "./home/Nav";
+    import HomeIndex from "./home/HomeIndex";
 
     export default {
         methods: {
             handleOpen(key, keyPath) {
                 console.log(key, keyPath);
-            },
-            handleClose(key, keyPath) {
-                console.log(key, keyPath);
+            }
+        },
+        data() {
+            return {
+                path: ''
             }
         },
         components: {
-            Nav
+            Nav,
+            HomeIndex
+        },
+        created() {
+            this.path = this.$route.path;
+        },
+        computed: {
+            routePath() {
+                return this.$route.path;
+            }
+        },
+        watch: {
+            routePath(val) {
+                this.path = val;
+            }
         }
     }
 </script>

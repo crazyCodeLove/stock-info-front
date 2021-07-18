@@ -4,7 +4,7 @@
                 :default-active="activeIndex2"
                 mode="horizontal"
                 @select="handleSelect"
-                background-color="#F5F5F5"
+                background-color="#FFEFF3"
                 text-color="#052643"
                 active-text-color="#052643">
             <el-submenu index="platform">
@@ -24,6 +24,7 @@
             </el-submenu>
             <el-submenu index="5" style="float: right;">
                 <template slot="title">{{user.username}}</template>
+                <el-menu-item index="toIndex" @click="toIndex">返回主页</el-menu-item>
                 <el-menu-item index="5-1">修改密码</el-menu-item>
                 <el-menu-item index="logout" @click="logout">登出</el-menu-item>
             </el-submenu>
@@ -43,14 +44,16 @@
         },
         methods: {
             handleSelect(key, keyPath) {
-                if (key == 'logout') {
+                if (key == 'logout' || key == 'toIndex') {
                     return;
                 }
                 let targetPath = '/index';
                 keyPath.forEach((it) => {
                     targetPath = targetPath + '/' + it;
                 });
-                this.$router.push(targetPath);
+                if (this.$route.path != targetPath) {
+                    this.$router.push(targetPath);
+                }
             },
             logout() {
                 this.$http({
@@ -67,6 +70,12 @@
                     });
                     this.$router.push("/login");
                 })
+            },
+            toIndex() {
+                let target = '/index';
+                if (target != this.$route.path) {
+                    this.$router.push(target);
+                }
             }
         },
         created() {

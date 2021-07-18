@@ -33,6 +33,7 @@
 </template>
 
 <script>
+    import UserUtil from "../../util/UserUtil";
     export default {
         name: "Nav",
         data() {
@@ -60,8 +61,7 @@
                     method: 'post',
                     url: '/stock-info/logout'
                 }).then(() => {
-                    sessionStorage.removeItem("username");
-                    sessionStorage.removeItem('token');
+                    UserUtil.clearUserInfo();
                     this.$notify({
                         title: '成功',
                         message: '登出成功',

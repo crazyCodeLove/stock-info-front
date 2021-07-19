@@ -144,7 +144,7 @@
         margin: 1px;
         padding: 4%;
         border: 1px solid #eaeaea;
-        box-shadow: 0 0 25px #cac6c6;
+        box-shadow: 0 0 25px #565656;
         background-color: white;
     }
 

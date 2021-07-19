@@ -15,5 +15,6 @@
 
     #app {
         background-color: #FAFAFA;
+        min-height: 95vh;
     }
 </style>

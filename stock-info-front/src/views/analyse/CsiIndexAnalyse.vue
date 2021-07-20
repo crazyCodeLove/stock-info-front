@@ -20,8 +20,8 @@
                 </el-form-item>
                 <el-form-item label="显示类型">
                     <el-select v-model="csiForm.showTypeList" multiple filterable clearable>
-                        <el-option v-for="item in showTypeList" :key="item" :label="item"
-                                   :value="item"></el-option>
+                        <el-option v-for="item in showTypeList" :key="item.code" :label="item.desc"
+                                   :value="item.code"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item style="margin-left: 20px">
@@ -53,7 +53,18 @@
                 indexDisplayList: [],
                 indexInfoMap: {},
                 showTypeList: [
-                    'pe', 'dp', 'close'
+                    {
+                        code: 'pe',
+                        desc: '市盈率'
+                    },
+                    {
+                        code: 'dp',
+                        desc: '股息率'
+                    },
+                    {
+                        code: 'close',
+                        desc: '市值'
+                    }
                 ]
             }
         },

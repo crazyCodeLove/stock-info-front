@@ -2,8 +2,8 @@
     <div>
         <div class="index-perform" id="index-perform">
             <div class="index-perform-pe-desc" desc="指数描述信息">
-                <p>描述信息</p>
-                <p>{{indexCode}}</p>
+                <h4>描述信息</h4>
+                <p>{{indexName}} - {{indexCode}}</p>
             </div>
             <div :id="indexId" class="index-perform-pe" desc="指数展示位置">
             </div>
@@ -22,7 +22,7 @@
                 indexId: ''
             }
         },
-        props: ['indexCode', 'tradeDateStart', 'tradeDateEnd'],
+        props: ['indexCode', 'indexName', 'tradeDateStart', 'tradeDateEnd'],
         methods: {
             queryIndexPerform() {
                 let requestParam = {
@@ -51,6 +51,9 @@
                 let peList = dataSource.map((it) => {
                     return it.pe1;
                 });
+                let dpList = dataSource.map((it) => {
+                    return it.dp1;
+                });
                 // 绘制图表
                 let option = {
                     legend: {},
@@ -64,13 +67,32 @@
                     yAxis: {
                         type: 'value'
                     },
-                    series: {
-                        name: '市盈率',
-                        data: peList,
-                        showSymbol: false,
-                        type: 'line',
-                        smooth: true
-                    }
+                    series: [
+                        {
+                            name: '市盈率',
+                            data: peList,
+                            showSymbol: false,
+                            type: 'line',
+                            smooth: true,
+                            markLine: {
+                                data: [
+                                    {type: 'average', name: '平均值'}
+                                ]
+                            }
+                        },
+                        {
+                            name: '股息率',
+                            data: dpList,
+                            showSymbol: false,
+                            type: 'line',
+                            smooth: true,
+                            markLine: {
+                                data: [
+                                    {type: 'average', name: '平均值'}
+                                ]
+                            }
+                        },
+                    ]
 
                 };
                 myChart.setOption(option);
@@ -79,6 +101,14 @@
         mounted() {
             this.indexId = "index-pe-perform-" + this.indexCode;
             this.queryIndexPerform();
+        },
+        watch: {
+            'tradeDateStart'() {
+                this.queryIndexPerform();
+            },
+            'tradeDateEnd'() {
+                this.queryIndexPerform();
+            }
         }
     }
 </script>

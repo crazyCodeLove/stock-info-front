@@ -8,9 +8,7 @@
     export default {
         name: "HomeIndex",
         data() {
-            return {
-                imagePath: require('../../assets/homedynamic.gif')
-            }
+            return {}
         }
     }
 </script>

@@ -22,7 +22,7 @@
                 indexId: ''
             }
         },
-        props: ['indexCode', 'indexName', 'tradeDateStart', 'tradeDateEnd'],
+        props: ['indexCode', 'indexName', 'tradeDateStart', 'tradeDateEnd', 'showTypeList'],
         methods: {
             queryIndexPerform() {
                 let requestParam = {
@@ -39,11 +39,11 @@
                 }).then((res) => {
                     let {code, result} = res.data;
                     if (code == 200) {
-                        this.fillPeEchart(result);
+                        this.fillPeEchart(result, this.showTypeList);
                     }
                 })
             },
-            fillPeEchart(dataSource) {
+            fillPeEchart(dataSource, showTypeList) {
                 let myChart = echarts.init(document.getElementById(this.indexId));
                 let dateList = dataSource.map((it) => {
                     return it.tradeDate;
@@ -54,11 +54,24 @@
                 let dpList = dataSource.map((it) => {
                     return it.dp1;
                 });
+                let closeList = dataSource.map((it) => {
+                    return it.close;
+                });
                 // 绘制图表
                 let option = {
                     legend: {},
                     tooltip: {
                         trigger: 'axis'
+                    },
+                    toolbox: {
+                        show: true,
+                        feature: {
+                            dataZoom: {
+                                yAxisIndex: 'none'
+                            },
+                            restore: {},
+                            saveAsImage: {}
+                        }
                     },
                     xAxis: {
                         type: 'category',
@@ -67,34 +80,67 @@
                     yAxis: {
                         type: 'value'
                     },
-                    series: [
-                        {
-                            name: '市盈率',
-                            data: peList,
-                            showSymbol: false,
-                            type: 'line',
-                            smooth: true,
-                            markLine: {
-                                data: [
-                                    {type: 'average', name: '平均值'}
-                                ]
-                            }
-                        },
-                        {
-                            name: '股息率',
-                            data: dpList,
-                            showSymbol: false,
-                            type: 'line',
-                            smooth: true,
-                            markLine: {
-                                data: [
-                                    {type: 'average', name: '平均值'}
-                                ]
-                            }
-                        },
-                    ]
+                    series: []
 
                 };
+                if (!showTypeList) {
+                    showTypeList = ['pe'];
+                }
+                let peSeries = {
+                    name: '市盈率',
+                    data: peList,
+                    showSymbol: false,
+                    type: 'line',
+                    smooth: true,
+                    markLine: {
+                        symbol: 'none',
+                        data: [
+                            {type: 'average', name: '平均值'}
+                        ]
+                    }
+                };
+
+                let dpSeries = {
+                    name: '股息率',
+                    data: dpList,
+                    showSymbol: false,
+                    type: 'line',
+                    smooth: true,
+                    markLine: {
+                        symbol: 'none',
+                        data: [
+                            {type: 'average', name: '平均值'}
+                        ]
+                    }
+                };
+
+                let closeSeries = {
+                    name: '市值',
+                    data: closeList,
+                    showSymbol: false,
+                    type: 'line',
+                    smooth: true,
+                    markLine: {
+                        symbol: 'none',
+                        data: [
+                            {type: 'average', name: '平均值'}
+                        ]
+                    }
+                }
+                showTypeList.forEach((item) => {
+                    switch (item) {
+                        case 'pe':
+                            option.series.push(peSeries);
+                            break;
+                        case 'dp':
+                            option.series.push(dpSeries);
+                            break;
+                        case 'close':
+                            option.series.push(closeSeries);
+                            break;
+                    }
+                })
+
                 myChart.setOption(option);
             }
         },
@@ -107,6 +153,9 @@
                 this.queryIndexPerform();
             },
             'tradeDateEnd'() {
+                this.queryIndexPerform();
+            },
+            'showTypeList'() {
                 this.queryIndexPerform();
             }
         }

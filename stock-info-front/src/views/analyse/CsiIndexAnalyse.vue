@@ -18,6 +18,12 @@
                             v-model="csiForm.tradeDateEnd" type="date" placeholder="选择结束日期" value-format="yyyy-MM-dd">
                     </el-date-picker>
                 </el-form-item>
+                <el-form-item label="显示类型">
+                    <el-select v-model="csiForm.showTypeList" multiple filterable clearable>
+                        <el-option v-for="item in showTypeList" :key="item" :label="item"
+                                   :value="item"></el-option>
+                    </el-select>
+                </el-form-item>
                 <el-form-item style="margin-left: 20px">
                     <el-button type="primary" @click="queryIndexPerform" icon="el-icon-search">查询</el-button>
                 </el-form-item>
@@ -25,7 +31,7 @@
         </div>
         <index-display v-for="item in indexDisplayList" :key="item.indexCode" :indexCode="item.indexCode"
                        :indexName="item.indexName" :tradeDateStart="item.tradeDateStart"
-                       :tradeDateEnd="item.tradeDateEnd"/>
+                       :tradeDateEnd="item.tradeDateEnd" :showTypeList="item.showTypeList"/>
     </div>
 </template>
 
@@ -40,11 +46,15 @@
                 csiForm: {
                     indexCode: [],
                     tradeDateStart: '',
-                    tradeDateEnd: ''
+                    tradeDateEnd: '',
+                    showTypeList: []
                 },
                 indexInfoList: [],
                 indexDisplayList: [],
-                indexInfoMap: {}
+                indexInfoMap: {},
+                showTypeList: [
+                    'pe', 'dp', 'close'
+                ]
             }
         },
         methods: {
@@ -58,7 +68,8 @@
                         indexCode: item,
                         indexName: this.indexInfoMap[item],
                         tradeDateStart: this.csiForm.tradeDateStart,
-                        tradeDateEnd: this.csiForm.tradeDateEnd
+                        tradeDateEnd: this.csiForm.tradeDateEnd,
+                        showTypeList: this.csiForm.showTypeList
                     }
                     this.indexDisplayList.push(requestParam);
                 });

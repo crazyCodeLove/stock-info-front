@@ -12,6 +12,9 @@ export default {
         if (!publicKey) {
             publicKey = sm2PublicKey;
         }
+        if (!cipherMode){
+            cipherMode=1;
+        }
         let encryptData = '04' + smEncrypt.doEncrypt(word, publicKey, cipherMode); // 加密结果
         return encryptData;
     },

@@ -83,7 +83,7 @@
                     series: []
 
                 };
-                if (!showTypeList) {
+                if (!showTypeList || showTypeList.length == 0) {
                     showTypeList = ['pe'];
                 }
                 let peSeries = {

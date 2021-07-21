@@ -97,8 +97,9 @@
             },
             login() {
                 let {username, password} = this.loginForm;
-                username = EncryptUtil.aesEncrypt(username);
                 password = EncryptUtil.sha256(password);
+                username = EncryptUtil.sm2Encrypt(username);
+                password = EncryptUtil.sm2Encrypt(password);
                 this.$http({
                     method: 'post',
                     url: '/stock-info/login',

@@ -77,9 +77,24 @@
                         type: 'category',
                         data: dateList
                     },
-                    yAxis: {
-                        type: 'value'
-                    },
+                    yAxis: [
+                        {//第1个y轴位置在左侧
+                            position: 'left',
+                            type: 'value',
+                            name: 'PE',
+                        },
+                        {//第2个y轴位置在左侧
+                            position: 'right',
+                            type: 'value',
+                            name: 'DP',
+                        },
+                        {//第3个y轴位置在左侧
+                            position: 'right',
+                            offset: 30,
+                            type: 'value',
+                            name: 'Index',
+                        },
+                    ],
                     series: []
 
                 };
@@ -89,6 +104,7 @@
                 let peSeries = {
                     name: '市盈率',
                     data: peList,
+                    yAxisIndex: '0',
                     showSymbol: false,
                     type: 'line',
                     smooth: true,
@@ -103,6 +119,7 @@
                 let dpSeries = {
                     name: '股息率',
                     data: dpList,
+                    yAxisIndex: '1',
                     showSymbol: false,
                     type: 'line',
                     smooth: true,
@@ -117,6 +134,7 @@
                 let closeSeries = {
                     name: '市值',
                     data: closeList,
+                    yAxisIndex: '2',
                     showSymbol: false,
                     type: 'line',
                     smooth: true,
@@ -141,7 +159,7 @@
                     }
                 })
 
-                myChart.setOption(option);
+                myChart.setOption(option, true);
             }
         },
         mounted() {
@@ -155,8 +173,13 @@
             'tradeDateEnd'() {
                 this.queryIndexPerform();
             },
-            'showTypeList'() {
+            'showTypeListLength'() {
                 this.queryIndexPerform();
+            }
+        },
+        computed: {
+            showTypeListLength() {
+                return this.showTypeList.length;
             }
         }
     }

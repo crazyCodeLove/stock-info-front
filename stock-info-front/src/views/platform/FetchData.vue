@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="main-content">
-            <el-button type="primary" round @click="downloadCsiData">下载 CSI 数据并落库</el-button>
+            <el-button type="primary" round @click="downloadCsiData" icon="el-icon-download">下载 CSI 数据并落库</el-button>
         </div>
     </div>
 </template>
